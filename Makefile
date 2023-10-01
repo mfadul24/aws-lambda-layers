@@ -46,6 +46,8 @@ layers: layer-php-80 layer-php-81 layer-php-82 layer-php-83 layer-php-80-fpm lay
 	@if [ ${CPU} = "x86" ]; then \
 		$(MAKE) layer-console; \
 	fi
+layer-rr-http:
+	./utils/docker-zip-dir.sh bref/${CPU_PREFIX}rr-http-zip ${CPU_PREFIX}rr-http
 layer-console:
 	./utils/docker-zip-dir.sh bref/console-zip console
 # This rule matches with a wildcard, for example `layer-php-80`.

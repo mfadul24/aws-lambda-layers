@@ -1,0 +1,26 @@
+version: "2.6"
+
+server:
+  command: "php public/index.php"
+  relay_timeout: 60s
+  relay: pipes
+  env:
+    - APP_RUNTIME: Baldinof\RoadRunnerBundle\Runtime\Runtime
+
+http:
+  address: 0.0.0.0:8080
+
+logs:
+  mode: development
+  level: debug
+  encoding: json
+  output: stderr
+
+# Uncomment to use metrics integration
+# rpc:
+#   listen: tcp://127.0.0.1:6001
+
+# Uncomment to use metrics integration
+# metrics:
+#   # prometheus client address (path /metrics added automatically)
+#   address: "0.0.0.0:9180"

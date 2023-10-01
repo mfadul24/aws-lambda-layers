@@ -1,5 +1,5 @@
 group "default" {
-    targets = ["build-php", "php", "php-fpm", "console-zip", "console", "php-fpm-dev"]
+    targets = ["build-php", "php", "php-fpm", "console-zip", "console", "rr-http", "rr-http-zip", "php-fpm-dev"]
 }
 
 variable "CPU" {
@@ -86,6 +86,31 @@ target "console" {
     platforms = ["${DOCKER_PLATFORM}"]
 }
 
+target "rr-http-zip" {
+    context = "layers/rr-http"
+    target  = "rr-http-zip"
+    tags    = ["bref/rr-http-zip"]
+    args    = {
+        PHP_VERSION = "${PHP_VERSION}"
+        CPU_PREFIX  = "${CPU_PREFIX}"
+    }
+    platforms = ["${DOCKER_PLATFORM}"]
+}
+
+target "rr-http" {
+    context = "layers/rr-http"
+    target  = "rr-http"
+    tags    = ["bref/${CPU_PREFIX}php-${PHP_VERSION}-rr-http"]
+    args    = {
+        PHP_VERSION = "${PHP_VERSION}"
+        CPU_PREFIX  = "${CPU_PREFIX}"
+    }
+    contexts = {
+        "bref/${CPU_PREFIX}build-php-${PHP_VERSION}" = "target:build-php"
+        "bref/${CPU_PREFIX}php-${PHP_VERSION}"       = "target:php"
+    }
+    platforms = ["${DOCKER_PLATFORM}"]
+}
 target "php-fpm-dev" {
     context = "layers/fpm-dev"
     tags    = ["bref/${CPU_PREFIX}php-${PHP_VERSION}-fpm-dev"]
