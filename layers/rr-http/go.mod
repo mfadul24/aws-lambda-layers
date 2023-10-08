@@ -4,6 +4,7 @@ go 1.21.1
 
 require (
 	github.com/aws/aws-lambda-go v1.41.0
+	github.com/goccy/go-json v0.10.2
 	github.com/roadrunner-server/api/v2 v2.23.0
 	github.com/roadrunner-server/config/v2 v2.16.5
 	github.com/roadrunner-server/endure v1.4.6
@@ -17,7 +18,6 @@ require (
 	github.com/fatih/color v1.15.0 // indirect
 	github.com/fsnotify/fsnotify v1.6.0 // indirect
 	github.com/go-ole/go-ole v1.3.0 // indirect
-	github.com/goccy/go-json v0.10.2 // indirect
 	github.com/google/uuid v1.3.1 // indirect
 	github.com/hashicorp/go-version v1.6.0 // indirect
 	github.com/hashicorp/hcl v1.0.0 // indirect

@@ -4,7 +4,7 @@ import (
 	"context"
 	"sync"
 	"time"
-    "encoding/json"
+    "github.com/goccy/go-json"
 
 	"github.com/aws/aws-lambda-go/lambda"
 	"github.com/aws/aws-lambda-go/events"
@@ -35,7 +35,7 @@ func (p *Plugin) Serve() chan error {
 	defer p.Unlock()
 	var err error
 
-	p.wrkPool, err = p.srv.NewWorkerPool(context.Background(), &poolImp.Config{NumWorkers: 1, DestroyTimeout: time.Second}, nil, nil)
+	p.wrkPool, err = p.srv.NewWorkerPool(context.Background(), &poolImp.Config{NumWorkers: 4, DestroyTimeout: time.Second}, nil, nil)
 
 	go func() {
 		// register handler
@@ -61,7 +61,7 @@ func (p *Plugin) Stop() error {
 func (p *Plugin) handler() func(ctx context.Context, request events.APIGatewayV2HTTPRequest) (events.APIGatewayV2HTTPResponse, error) {
 	return func(ctx context.Context, request events.APIGatewayV2HTTPRequest) (events.APIGatewayV2HTTPResponse, error) {
 		// execute on worker pool
-		if p.wrkPool == nil {
+		if nil == p.wrkPool {
 			// or any error
 			return events.APIGatewayV2HTTPResponse{Body: "", StatusCode: 500}, nil
 		}
